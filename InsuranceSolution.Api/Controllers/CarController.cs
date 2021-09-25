@@ -82,6 +82,11 @@ namespace InsuranceSolution.Api.Controllers
         public IActionResult Post([FromBody] CarDetails model)
         {
 
+            // Check if the submittecd customer is valid 
+            var customer = _db.Customers.Find(model.CustomerId);
+            if (customer == null)
+                return NotFound();
+
             var car = new Car
             {
                 MakeModel = model.MakeModel,
@@ -98,11 +103,12 @@ namespace InsuranceSolution.Api.Controllers
             return Ok(model);
         }
 
-
         [HttpPut]
-
         public IActionResult Put([FromBody] CarDetails model)
         {
+            var customer = _db.Customers.Find(model.CustomerId);
+            if (customer == null)
+                return NotFound("Customer not found");
 
             var cars = _db.Cars.Find(model.Id);
             if (cars == null)

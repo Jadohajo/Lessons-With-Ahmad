@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace InsuranceSolution.Shared.Models
 {
@@ -16,7 +17,7 @@ namespace InsuranceSolution.Shared.Models
         public int Age => Convert.ToInt32((DateTime.Now - Birthdate).TotalDays / 365);
 
         // TODO: Add the list of cars 
-        //public List<CarSummary> Cars { get; set; }
+        public List<CarDetails> Cars { get; set; }
         public int CarsCount { get; set; }
     }
 }

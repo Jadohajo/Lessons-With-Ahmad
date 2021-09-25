@@ -59,6 +59,9 @@ namespace InsuranceSolution.Api.Controllers
             if (customer == null)
                 return NotFound();
 
+            // Retrieve the cars for theselected customer 
+            var customerCars = _db.Cars.Where(c => c.CustomerId == id).ToArray(); 
+
             return Ok(new CustomerDetail
             {
                 Id = customer.Id,
@@ -67,7 +70,15 @@ namespace InsuranceSolution.Api.Controllers
                 Phone = customer.Phone,
                 Birthdate = customer.Birthday,
                 Email = customer.Email,
-                CarsCount = 0 // Calculate the count of the used cars 
+                CarsCount = customerCars.Length,
+                Cars = customerCars.Select(c => new CarDetails
+                {
+                    Id = c.Id,
+                    Year = c.Year,
+                    MakeModel = c.MakeModel,
+                    MaxSpeed = c.MaxSpeed,
+                    Millage = c.Millage,
+                }).ToList()
             });
         }
 
