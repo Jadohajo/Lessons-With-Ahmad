@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace InsuranceSolution.Shared.Models
 {
-   public class ReservationDetail
+    public class ReservationDetail
     {
 
         public int Id { get; set; }
@@ -16,5 +16,6 @@ namespace InsuranceSolution.Shared.Models
         public decimal Price { get; set; } // Devimal(18, 2)
         public int ProviderId { get; set; }
         public int CarId { get; set; }
+        
     }
 }

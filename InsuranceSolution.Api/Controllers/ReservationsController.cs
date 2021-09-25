@@ -27,14 +27,14 @@ namespace InsuranceSolution.Api.Controllers
             var Reservations = _db.Reservations.ToArray();
 
             // Make the respone quick, light and small
-            var ReservationsDetail = Reservations.Select(p => new ReservationDetail
+            var ReservationsDetail = Reservations.Select(p => new ReservationSummary
             {
                 Id = p.Id,
                 Price = p.Price,
-                CarId = p.CarId,
-                ProviderId = p.ProviderId,
+                //CarId = p.CarId,
+                //ProviderId = p.ProviderId,
                 StartDate = p.StartDate,
-                Enddate = p.Enddate
+                //Enddate = p.Enddate
             });
 
             return Ok(Reservations);
