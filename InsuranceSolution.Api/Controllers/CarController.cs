@@ -26,11 +26,9 @@ namespace InsuranceSolution.Api.Controllers
 
         public IActionResult Get()
         {
-
-
             var cars = _db.Cars.ToArray();
 
-            var cardetails = cars.Select(c => new Car
+            var carDetails = cars.Select(c => new CarDetails
             {
                 Id = c.Id,
                 MakeModel = c.MakeModel,
@@ -38,42 +36,42 @@ namespace InsuranceSolution.Api.Controllers
                 Millage = c.Millage,
                 Year = c.Year,
                 CustomerId = c.CustomerId
-            });
+            }).ToArray();
 
-            return Ok(cardetails);
+            return Ok(carDetails);
         }
 
 
-        [HttpGet("{ID}")]
+        [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            var carsget = _db.Cars.Find(id);
+            var car = _db.Cars.Find(id);
 
-            if (carsget == null)
+            if (car == null)
                 return NotFound();
 
-            return Ok(new Car
+            return Ok(new CarDetails
             {
-                Id = carsget.Id,
-                MakeModel = carsget.MakeModel,
-                MaxSpeed = carsget.MaxSpeed,
-                Millage = carsget.Millage,
-                Year = carsget.Year,
-                CustomerId = carsget.CustomerId
+                Id = car.Id,
+                MakeModel = car.MakeModel,
+                MaxSpeed = car.MaxSpeed,
+                Millage = car.Millage,
+                Year = car.Year,
+                CustomerId = car.CustomerId
             });
         }
 
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
 
         public IActionResult Delete(int id)
         {
 
-            var Cars = _db.Cars.Find(id);
-            if (Cars == null)
+            var car = _db.Cars.Find(id);
+            if (car == null)
                 return NotFound();
 
-            _db.Cars.Remove(Cars);
+            _db.Cars.Remove(car);
             _db.SaveChanges();
 
             return Ok();
@@ -81,25 +79,21 @@ namespace InsuranceSolution.Api.Controllers
 
 
         [HttpPost]
-        public IActionResult Post([FromBody] Car model)
+        public IActionResult Post([FromBody] CarDetails model)
         {
 
-
-            // HERE ID = 0 
-            var cardetails = new Car
+            var car = new Car
             {
-                Id = model.Id,
                 MakeModel = model.MakeModel,
                 MaxSpeed = model.MaxSpeed,
                 Millage = model.Millage,
                 Year = model.Year,
                 CustomerId = model.CustomerId
             };
-
-            _db.Cars.Add(cardetails);
+            _db.Cars.Add(car);
             _db.SaveChanges();
 
-            model.Id = cardetails.Id;
+            model.Id = car.Id;
 
             return Ok(model);
         }
@@ -107,7 +101,7 @@ namespace InsuranceSolution.Api.Controllers
 
         [HttpPut]
 
-        public IActionResult Put([FromBody] Car model)
+        public IActionResult Put([FromBody] CarDetails model)
         {
 
             var cars = _db.Cars.Find(model.Id);
@@ -124,7 +118,6 @@ namespace InsuranceSolution.Api.Controllers
             _db.SaveChanges();
 
             return Ok();
-
 
         }
     }
