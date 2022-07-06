@@ -18,6 +18,8 @@ namespace InsuranceSolution.Models
 
         public int Year { get; set; }
 
+        public string Color { get; set; }
+
         //Navigation Property
         public Customer customer { get; set; }
 

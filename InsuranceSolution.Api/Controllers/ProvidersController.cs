@@ -59,7 +59,7 @@ namespace InsuranceSolution.Api.Controllers
             });
         }
 
-        [HttpPost]
+        [HttpPost] // Model Binding 
         public IActionResult Post([FromBody]ProviderDetail model)
         {
             // HERE ID = 0 

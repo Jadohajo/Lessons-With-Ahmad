@@ -41,6 +41,7 @@ namespace InsuranceSolution.Api
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "InsuranceSolution.Api", Version = "v1" });
             });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -57,7 +58,8 @@ namespace InsuranceSolution.Api
 
             app.UseRouting();
 
-            app.UseAuthorization();
+            app.UseAuthentication(); // Login 
+            app.UseAuthorization();  // Roles based access 
 
             app.UseEndpoints(endpoints =>
             {
