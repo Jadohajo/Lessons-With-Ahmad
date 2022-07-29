@@ -42,6 +42,15 @@ namespace InsuranceSolution.Api
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "InsuranceSolution.Api", Version = "v1" });
             });
 
+            // Define CORS policy for everything 
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllWebsites", policy =>
+                {
+                    policy.AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin(); 
+                });
+            });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -53,7 +62,7 @@ namespace InsuranceSolution.Api
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "InsuranceSolution.Api v1"));
             }
-
+            app.UseCors("AllWebsites");
             app.UseHttpsRedirection();
 
             app.UseRouting();
