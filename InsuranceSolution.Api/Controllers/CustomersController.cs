@@ -95,9 +95,17 @@ namespace InsuranceSolution.Api.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody] Customer model)
+        public IActionResult Post([FromBody] CustomerDetail model)
         {
-            _db.Customers.Add(model);
+            var customer = new Customer();
+            customer.FirstName = model.FirstName;
+            customer.LastName = model.LastName;
+            customer.Phone = model.Phone;
+            customer.Country = model.Country;
+            customer.Email = model.Email;
+            customer.Birthday = model.Birthdate;
+            
+            _db.Customers.Add(customer);
 
             _db.SaveChanges();
 
