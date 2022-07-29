@@ -1,4 +1,5 @@
 ﻿@page "/"
+@using InsuranceSolution.Shared.Models
 
 <PageTitle>Index</PageTitle>
 
@@ -7,3 +8,22 @@
 Welcome to your new app.
 
 <SurveyPrompt Title="How is Blazor working for you?" />
+
+@foreach (var item in _customers)
+{
+	<h4>@item.FullName</h4>
+	<hr />
+}
+
+@code
+{
+	[Inject]
+	public HttpClient HttpClient { get; set; }
+
+	private List<CustomerSummary> _customers = new(); 
+
+	protected async override Task OnInitializedAsync()
+	{
+		_customers = await HttpClient.GetFromJsonAsync<List<CustomerSummary>>("https://localhost:44351/api/customers");
+	}
+}
