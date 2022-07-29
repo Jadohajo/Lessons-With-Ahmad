@@ -29,4 +29,21 @@ namespace InsuranceSolution.Models
 
         public List<Reservation> Reservations { get; set; }
     }
+
+    /// <summary>
+    /// Sampe to demonstrate the one to many relationshsip with the same table 
+    /// </summary>
+    public class Comment
+    {
+        public int CommentId { get; set; }
+
+        public string Content { get; set; }
+
+        public List<Comment> Replys { get; set; }
+        
+        public Comment ParentComment { get; set; }
+        [ForeignKey(nameof(ParentComment))]
+        public int ParentCommentId { get; set; }
+        
+    }
 }

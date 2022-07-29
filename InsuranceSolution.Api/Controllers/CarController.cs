@@ -124,7 +124,6 @@ namespace InsuranceSolution.Api.Controllers
             _db.SaveChanges();
 
             return Ok();
-
         }
     }
 }
