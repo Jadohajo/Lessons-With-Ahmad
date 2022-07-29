@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InsuranceSolution.Models", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InsuranceSolution.Shared", "InsuranceSolution.Shared\InsuranceSolution.Shared.csproj", "{F91A1038-0FEB-4F4D-AE80-DE9E6800AFE9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InsuranceSoluiton.Console", "InsuranceSoluiton.Console\InsuranceSoluiton.Console.csproj", "{B4821A5C-B36F-4635-B42F-3935C258A5C3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InsuranceSoluiton.ConsoleClient", "InsuranceSoluiton.Console\InsuranceSoluiton.ConsoleClient.csproj", "{B4821A5C-B36F-4635-B42F-3935C258A5C3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Server", "Server", "{2454E7EF-31DE-44EC-B71F-3EE47AAEDF17}"
 EndProject

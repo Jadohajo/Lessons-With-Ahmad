@@ -132,7 +132,7 @@ namespace InsuranceSolution.Api.Controllers
             return Ok(); 
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
             // Find compares an object with primary value of the object 

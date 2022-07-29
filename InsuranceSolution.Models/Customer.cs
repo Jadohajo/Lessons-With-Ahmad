@@ -23,7 +23,7 @@ namespace InsuranceSolution.Models
         [StringLength(15)]
         public string Phone { get; set; }
         [Required]
-        [StringLength(25)]
+        [StringLength(50)]
         public string Email { get; set; }
         [Required]
         [StringLength(25)]
