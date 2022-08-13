@@ -1,8 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 
 namespace InsuranceSolution.Models
+    // Default AspNet Identity user called (IdentityUser) & default role object called IdentityRole 
 {
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : IdentityDbContext<IdentityUser>
     {
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
@@ -18,3 +21,9 @@ namespace InsuranceSolution.Models
 
     }
 }
+
+//public class MyUser : IdentityUser
+//{
+//    public string FirstName { get; set; }
+//    public string LastName { get; set; }
+//}
