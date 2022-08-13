@@ -1,16 +1,19 @@
 ﻿using InsuranceSolution.Models;
 using InsuranceSolution.Shared.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace InsuranceSolution.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class CarController : ControllerBase
     {
 
@@ -26,6 +29,10 @@ namespace InsuranceSolution.Api.Controllers
 
         public IActionResult Get()
         {
+            var user = User;
+            // Sample to retrieve the id of the logged in user
+            var userId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value; 
+            //var cars = _db.Cars.Where(c => c.userid == userId).ToArray();
             var cars = _db.Cars.ToArray();
 
             var carDetails = cars.Select(c => new CarDetails
