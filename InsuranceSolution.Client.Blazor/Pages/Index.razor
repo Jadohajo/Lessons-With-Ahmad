@@ -3,27 +3,94 @@
 
 <PageTitle>Index</PageTitle>
 
-<h1>Hello, world!</h1>
+<MudTabs>
+	<MudTabPanel Text="Blazor Tests">
 
-Welcome to your new app.
+		<MudText Typo="Typo.h2" Color="Color.Primary">Welcome to Insurance</MudText>
+		<MudText Typo="Typo.body1">Insurnace app helps you manage your insurnace business and keep everything in one screen</MudText>
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+		<MudChip Style="margin:10px" Color="Color.Error">Offline</MudChip>
+		<MudChip Style="margin:10px" Color="Color.Warning">Connecting...</MudChip>
+		<MudChip Style="margin:10px" Color="Color.Success">Online</MudChip>
 
-@foreach (var item in _customers)
-{
-	<h4>@item.FullName</h4>
-	<hr />
-}
+		<MudButton Color="Color.Primary" Variant="Variant.Filled" OnClick="OpenDialog">Sure??</MudButton>
+		<MudButton Color="Color.Secondary" Variant="Variant.Outlined">Outlined Button</MudButton>
+		<MudButton Color="Color.Success" Variant="Variant.Text">Text Button</MudButton>
+
+		<MudGrid Spacing="4">
+			<MudItem sm="12" md="6" lg="4">
+				<MudPaper Height="200px" Elevation="1" />
+			</MudItem>
+			<MudItem sm="12" md="6" lg="4">
+				<MudPaper Height="200px" Elevation="2" />
+			</MudItem>
+			<MudItem sm="12" md="6" lg="4">
+				<MudPaper Height="200px" Elevation="3" />
+			</MudItem>
+			<MudItem sm="12" md="6" lg="4">
+				<MudPaper Height="200px" Elevation="4" />
+			</MudItem>
+			<MudItem sm="12" md="6" lg="4">
+				<MudPaper Height="200px" />
+			</MudItem>
+			<MudItem sm="12" md="6" lg="4">
+				<MudPaper Height="200px" />
+			</MudItem>
+			<MudItem sm="12" md="6" lg="4">
+				<MudPaper Height="200px" />
+			</MudItem>
+		</MudGrid>
+
+		<SurveyPrompt Title="How is Blazor working for you?" />
+
+		@if (_isBusy)
+		{
+			<MudSkeleton SkeletonType="SkeletonType.Rectangle" Width="300px" Height="10px" Style="margin-bottom:10px" />
+			<MudSkeleton SkeletonType="SkeletonType.Rectangle" Width="300px" Height="10px" Style="margin-bottom:10px" />
+			<MudSkeleton SkeletonType="SkeletonType.Rectangle" Width="300px" Height="10px" Style="margin-bottom:10px" />
+			<MudSkeleton SkeletonType="SkeletonType.Rectangle" Width="300px" Height="10px" Style="margin-bottom:10px" />
+			<MudSkeleton SkeletonType="SkeletonType.Rectangle" Width="300px" Height="10px" Style="margin-bottom:10px" />
+			<MudSkeleton SkeletonType="SkeletonType.Rectangle" Width="300px" Height="10px" Style="margin-bottom:10px" />
+		}
+		else
+		{
+			@foreach (var item in _customers)
+			{
+				<h4>@item.FullName</h4>
+				<hr />
+			}
+		}
+
+
+	</MudTabPanel>
+	<MudTabPanel Text="My Customers">
+
+	</MudTabPanel>
+	<MudTabPanel Text="My Cars">
+
+	</MudTabPanel>
+</MudTabs>
 
 @code
 {
 	[Inject]
 	public HttpClient HttpClient { get; set; }
 
-	private List<CustomerSummary> _customers = new(); 
+	[Inject]
+	public IDialogService Dialog { get; set; }
 
+	private List<CustomerSummary> _customers = new(); 
+	private bool _isBusy = false; 
 	protected async override Task OnInitializedAsync()
 	{
+		_isBusy = true;
 		_customers = await HttpClient.GetFromJsonAsync<List<CustomerSummary>>("https://localhost:44351/api/customers");
+		_isBusy = false;
+	}
+
+	private void OpenDialog()
+	{
+		var options = new DialogOptions { CloseOnEscapeKey = true };
+		Dialog.Show<ConfirmationDialog>("Simple Dialog", options);
 	}
 }
