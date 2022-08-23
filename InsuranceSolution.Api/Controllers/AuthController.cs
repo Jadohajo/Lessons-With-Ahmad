@@ -43,6 +43,8 @@ namespace InsuranceSolution.Api.Controllers
             };
 
             await _userManager.CreateAsync(user, model.Password);
+            
+            var emailConfirmationToken = await _userManager.GenerateEmailConfirmationTokenAsync(user);
 
             return Ok();
         }
@@ -79,6 +81,20 @@ namespace InsuranceSolution.Api.Controllers
             string tokenAsString = new JwtSecurityTokenHandler().WriteToken(token);
 
             return Ok(tokenAsString);
+        }
+
+        [HttpGet("email-confirm")]
+        public async Task<IActionResult> ConfirmEmail(string email, string token)
+        {
+            var user = await _userManager.FindByEmailAsync(email); // Find the user by email
+            if (user == null)
+                return BadRequest("User does not exist");
+           
+            var result = await _userManager.ConfirmEmailAsync(user, token.Replace(" ", "+"));
+            if (!result.Succeeded)
+                return BadRequest("Token is invalid");
+
+            return Ok();
         }
     }
 }
