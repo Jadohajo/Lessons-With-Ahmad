@@ -13,7 +13,9 @@
         <NavMenu />
     </MudDrawer>
     <MudMainContent>
-        @Body
+		<MudContainer MaxWidth="MaxWidth.Large" Style="margin-top: 20px">
+            @Body
+        </MudContainer>
     </MudMainContent>
 </MudLayout>
 @code {
